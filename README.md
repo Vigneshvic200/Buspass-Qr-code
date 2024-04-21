@@ -1,2 +1,2 @@
 # Buspass-Qr-code
-Creating a bus pass in online developed in Python and Django 
+bus pass Qr code  developed in Python and Django 
