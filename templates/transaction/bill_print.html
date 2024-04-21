@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Print</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .valid-date {
+            color: green;
+        }
+        .invalid-date {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bill Details</h1>
+        <img src="data:image/png;base64,{{ qr_code_image_base64 }}" alt="QR Code Image">
+        <p>Pass ID: {{ transaction.id }}</p>
+        <p>passenger Name: {{ transaction.name }}</p>
+        <p>Fromdate: {{ transaction.fromdate }}</p>
+         <!-- Checking if the transaction date is valid -->
+         {% if transaction.todate %}
+         {% if transaction.todate >= today %}
+             <p class="valid-date">Todate: {{ transaction.todate }} - Valid</p>
+         {% else %}
+             <p class="invalid-date">Todate: {{ transaction.todate }} - Expired</p>
+         {% endif %}
+     {% else %}
+         <p>Todate: N/A</p>
+     {% endif %}
+        <p>Pass get date: {{ transaction.trdate }}</p>
+        <p>Fromplace: {{ transaction.fromplace }}</p>
+        <p>Toplace: {{ transaction.toplace }}</p>
+        <p>Passtype: {{ transaction.passtype }}</p>
+        <!-- Display other transaction details as needed -->
+
+        <!-- Display QR code image -->
+        
+    </div>
+</body>
+</html>

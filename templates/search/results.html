@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    <style>
+        /* CSS styles for bill details */
+        .container {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 600px;
+            margin: 0 auto;
+    
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .valid-date {
+            color: green;
+        }
+        .invalid-date {
+            color: red;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Bill Details</h1>
+        <img src="data:image/png;base64,{{ qr_code_image_base64 }}" alt="QR Code Image">
+        <p>Pass ID: {{ transaction.id }}</p>
+        <p>Passenger Name: {{ transaction.name }}</p>
+        <p>From Date: {{ transaction.fromdate }}</p>
+        <!-- Checking if the transaction date is valid -->
+        {% if transaction.todate %}
+        {% if transaction.todate >= today %}
+            <p class="valid-date">Todate: {{ transaction.todate }} - Valid</p>
+        {% else %}
+            <p class="invalid-date">Todate: {{ transaction.todate }} - Expired</p>
+        {% endif %}
+    {% else %}
+        <p>Todate: N/A</p>
+    {% endif %}
+    
+        <p>Pass Get Date: {{ transaction.trdate }}</p>
+        <p>From Place: {{ transaction.fromplace }}</p>
+        <p>To Place: {{ transaction.toplace }}</p>
+        <p>Pass Type: {{ transaction.passtype }}</p>
+        <!-- Display other transaction details as needed -->
+
+        <!-- Display QR code image -->
+        
+    </div>
+{% endblock %}

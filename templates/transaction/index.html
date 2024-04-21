@@ -1,0 +1,132 @@
+
+{% extends "base.html" %}
+  
+{% block title %}Add New Passenger Records{% endblock title %}
+
+  
+{% block content %}
+<div class="col-md-12">    
+        <form method="POST" class="post-form" action="{% url 'transaction:addnew' %}"> 
+    {% csrf_token %}  
+    <div class="container">  
+        <div class="col-12">  
+        <h3>Enter Details</h3>  
+        </div>    
+     
+            
+                    <div class="mb-6">
+                            <label>Name:</label> 
+                            {{ form.name  }}  
+                        </div>
+                    <div class="mb-6">
+                            <label>city:</label> 
+                            {{ form.city }}  
+                        </div> 
+             <div class="mb-6">
+                            <label>fromdate:</label> 
+                            {{ form.fromdate }}  
+                        </div> 
+             <div class="mb-6">
+                            <label>todate:</label> 
+                            {{ form.todate }}  
+                        </div> 
+             <div class="mb-6">
+                            <label>trdate:</label> 
+                            {{ form.trdate }}  
+                        </div> 
+             <div class="mb-6">
+                            <label>fromplace:</label> 
+                            {{ form.fromplace }}  
+                        </div> 
+             <div class="mb-6">
+                            <label>toplace:</label> 
+                            {{ form.toplace }}  
+                        </div> 
+             <div class="mb-6">
+                            <label>address:</label> 
+                            {{ form.address }}  
+                        </div>
+             <div class="mb-6">
+                            <label>amount:</label> 
+                            {{ form.amount }}  
+                        </div> 
+                 <div class="mb-6">
+                                <label>contact:</label> 
+                                {{ form.contact }}  
+                            </div>
+                     <div class="mb-10">
+                                    <label>passtype:</label> 
+                                    {{ form.passtype }}  
+                                </div>  
+                </div> 
+        <div class="mb-3"> 
+            <button type="submit" class="btn btn-primary">Submit</button>    
+        </div> 
+    </div>  
+    </form>  
+</div> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function() {
+        // Initialize datepicker for fromdate field
+        $('#id_fromdate').datepicker({
+            dateFormat: 'yy-mm-dd', // Date format
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-100:+0", // Allow selection of dates up to 100 years ago
+            onSelect: function(selectedDate) {
+                // Set minDate for todate field
+                $('#id_todate').datepicker('option', 'minDate', selectedDate);
+            }
+        });
+
+        // Initialize datepicker for todate field
+        $('#id_todate').datepicker({
+            dateFormat: 'yy-mm-dd', // Date format
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-100:+0", // Allow selection of dates up to 100 years ago
+            onSelect: function(selectedDate) {
+                // Set maxDate for fromdate field
+                $('#id_fromdate').datepicker('option', 'maxDate', selectedDate);
+            }
+        });
+
+        // Initialize datepicker for trdate field
+        $('#id_trdate').datepicker({
+            dateFormat: 'yy-mm-dd', // Date format
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-100:+0", // Allow selection of dates up to 100 years ago
+        });
+    });
+</script>
+<script>
+    $('#name').on('input', function() {
+        var name = $(this).val();
+        $.ajax({
+            url: '/get_passenger_data/',
+            data: {
+                'name': name
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.error) {
+                    console.log(response.error);
+                } else {
+                    $('#city').val(response.passenger.city);
+                    $('#contact').val(response.passenger.contact);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    });
+</script>    
+    
+
+
+
+ 
+{% endblock content %} 

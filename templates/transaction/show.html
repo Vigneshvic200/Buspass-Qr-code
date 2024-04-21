@@ -1,0 +1,53 @@
+
+ {% extends "base.html" %}
+{% block title %}Passenger Records{% endblock title %}
+  
+{% block content %}
+ <div class="col-md-12">
+             <span><a href="{% url 'transaction:addnew' %}" class="btn btn-primary">Add New Record</a></span> 
+            <div class="table-responsive">
+            <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
+            <thead>
+                <th><input type="checkbox" id="checkall" /></th>
+                <th>ID</th>
+                <th>passes Name</th>
+                <th>passes city</th>
+                <th>passes fromdate</th>
+                <th>passes todate</th>
+                <th>passes trdate</th>
+                <th>passes fromplace</th>
+                <th>passes toplace</th>
+                <th>passes address</th>
+                <th>passes contact</th>
+                <th>passes amount</th>
+                <th>passes passtype</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>billprint</th>
+            </thead>
+            <tbody>
+            {% for trnasactions in transaction %}  
+                <tr>  
+                <td><input type="checkbox" class="checkthis" /></td>
+                <td>{{ trnasactions.id }}</td>  
+                <td>{{ trnasactions.name }}</td>  
+                <td>{{ trnasactions.city }}</td>
+                <td>{{ trnasactions.fromdate }}</td>  
+                <td>{{ trnasactions.todate }}</td>  
+                <td>{{ trnasactions.trdate }}</td>  
+                <td>{{ trnasactions.fromplace }}</td>  
+                <td>{{ trnasactions.toplace }}</td>  
+                <td>{{ trnasactions.address }}</td> 
+                <td>{{ trnasactions.contact }}</td> 
+                <td>{{ trnasactions.amount }}</td>  
+                <td>{{ trnasactions.passtype}}</td>     
+                 <td><a href="{% url 'transaction:edit' id=trnasactions.id %}" class="btn btn-primary">Edit</a></td>
+                <td><a href="{% url 'transaction:destroy' id=trnasactions.id %}" class="btn btn-danger">Delete</a></td> 
+                <td><a href="{% url 'transaction:billprint' id=trnasactions.id %}" class="btn btn-primary">billprint</a></td> 
+                </tr>  
+        {% endfor %} 
+        </tbody>
+        </table>
+        </div>
+    </div>
+{% endblock content %}

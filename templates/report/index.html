@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+  
+{% block title %}Passes Records{% endblock title %}
+  
+{% block content %}
+ <div class="col-md-12">
+      
+        <div class="table-responsive">
+        <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
+        <thead>
+            <th><input type="checkbox" id="checkall" /></th>
+            <th>ID</th>
+            <th>passes Name</th>
+            <th>passes city</th>
+            <th>passes fromdate</th>
+            <th>passes todate</th>
+            <th>passes trdate</th>
+            <th>passes fromplace</th>
+            <th>passes toplace</th>
+            <th>passes address</th>
+            <th>passes passtype</th>
+            
+        </thead>
+        <tbody>
+           {% for transaction in transactions %}  
+            <tr>  
+                <td><input type="checkbox" class="checkthis" /></td>
+            <td>{{ transaction.id }}</td>  
+            <td>{{ transaction.name }}</td>  
+            <td>{{ transaction.city }}</td>
+            <td>{{ transaction.fromdate }}</td>  
+            <td>{{ transaction.todate }}</td>  
+            <td>{{transaction.trdate }}</td>  
+            <td>{{ transaction.fromplace }}</td>  
+            <td>{{ transaction.toplace }}</td>  
+            <td>{{ transaction.address }}</td>  
+            <td>{{ transaction.passtype}}</td>     
+            </tr>  
+        {% endfor %} 
+        </tbody>
+        </table>
+        </div>
+    </div>
+{% endblock content %}

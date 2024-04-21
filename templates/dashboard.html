@@ -1,0 +1,84 @@
+{% extends 'layouts/app.html' %}
+
+
+{% block content %}
+
+<h1>Dashboard : {{ request.user.username }}</h1>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Buspass</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Boxicons CDN Link -->
+  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+    <div class="sidebar">
+      <div class="logo-details">
+        <i class="bx bxl-c-plus-plus"></i>
+        <span class="logo_name">Buspass</span>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="{% url 'passenger:index' %}" class="active">
+            <i class="bx bx-grid-alt"></i>
+            <span class="links_name">Passenger</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'passes:index' %}">
+            <i class="bx bx-box"></i>
+            <span class="links_name">Passes</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'transaction:index' %}">
+            <i class="bx bx-list-ul"></i>
+            <span class="links_name">transaction</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'report:report' %}">
+            <i class="bx bx-coin-stack"></i>
+            <span class="links_name">report</span>
+          </a>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    function saveCustomer() {
+      // Add your save logic here
+      console.log("Save button clicked");
+    }
+
+    function resetForm() {
+      document.getElementById("customerForm").reset();
+      console.log("Reset button clicked");
+    }
+
+    function deleteCustomer() {
+      // Add your delete logic here
+      console.log("Delete button clicked");
+    }
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".sidebarBtn");
+    sidebarBtn.onclick = function () {
+      sidebar.classList.toggle("active");
+      if (sidebar.classList.contains("active")) {
+        sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+      } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+    };
+  </script>
+</body>
+
+</html>
+
+
+<a href="{% url 'auth_app:logout' %}" class="btn btn-dark">Logout</a>
+
+
+{% endblock %}
